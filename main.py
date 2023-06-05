@@ -34,33 +34,29 @@ class MazeData:
         wall_y = 0
 
         for _ in self.data[0]:
+            wall_y = 0
             for i in self.data[0][wall_x]:
                 if i == 1:
                     walls.append((wall_x, wall_y))  
                 elif i == 2:
                     doors.append((wall_x, wall_y))
-                
-                if wall_y < len(self.data[0]):
-                    wall_y += 1
-                else:
-                    pass    
+
+                wall_y += 1
             wall_x += 1
 
+        wall_x = 0
+        wall_y = 0
         for _ in self.data[1]:
+            wall_x = 0
             for i in self.data[1][wall_y]:
                 if i == 1:
                     walls.append((wall_x, wall_y))
                 elif i == 2:
                     doors.append((wall_x, wall_y))
-                
-                if wall_x < len(self.data[1]):
-                    wall_x += 1
-                else:
-                    pass
-            if wall_y < len(self.data[1]):
-                wall_y += 1
-            else:
-                pass  
+
+                wall_x += 1
+            wall_y += 1
+
         print(walls, doors)
 
 
