@@ -4,11 +4,11 @@ from mazerenderer import MazeRenderer
 
 main_tk = Tk()
 
-w = Canvas(main_tk, width=1000, height=1000)
+w = Canvas(main_tk, width=1000, height=506)
 w.pack()
 rows_number = 0
 columns_number = 0
-row_size = 50
+row_size = 125
 
 def draw_grid():
     # creating table
@@ -29,8 +29,9 @@ def draw_grid():
 
 # class Robot:
 
-data = MazeData("cisla.txt")
+data = MazeData("level1.txt")
 renderer = MazeRenderer(w, data, row_size)
 renderer.draw()
+renderer.gui()
 
 mainloop()
