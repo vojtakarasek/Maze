@@ -1,84 +1,36 @@
 from tkinter import *
+from mazedata import MazeData
+from mazerenderer import MazeRenderer
 
-hlavni = Tk()
+main_tk = Tk()
 
-w = Canvas(hlavni, width=506, height=506)
+w = Canvas(main_tk, width=1000, height=1000)
 w.pack()
+rows_number = 0
+columns_number = 0
+row_size = 50
 
-# creating table 10x10
-a = 5
-b = 5
-for x in range(11):
-    w.create_line(5, a, 505, b)
-    a += 50
-    b += 50
-a = 5
-b = 5
-for x in range(11):
-    w.create_line(a, 5, b, 505)
-    a += 50
-    b += 50
+def draw_grid():
+    # creating table
+    coordinate_a = 5
+    coordinate_b = 5
 
-
-class MazeData:
-
-    def __init__(self, file_name):
-        with open(file_name, "r") as input:
-            file_content = input.read()
-            self.data = eval(file_content)
-
-    def wall(self):
-        walls = []
-        doors = []
-        wall_x = 0
-        wall_y = 0
-
-        for _ in self.data[0]:
-            wall_y = 0
-            for i in self.data[0][wall_x]:
-                if i == 1:
-                    walls.append((wall_x, wall_y))  
-                elif i == 2:
-                    doors.append((wall_x, wall_y))
-
-                wall_y += 1
-            wall_x += 1
-
-        wall_x = 0
-        wall_y = 0
-        for _ in self.data[1]:
-            wall_x = 0
-            for i in self.data[1][wall_y]:
-                if i == 1:
-                    walls.append((wall_x, wall_y))
-                elif i == 2:
-                    doors.append((wall_x, wall_y))
-
-                wall_x += 1
-            wall_y += 1
-
-        print(walls, doors)
-
-
-
-    #def is_wall(self, row, column, direction): bool  #direction l,t,r,b
-        #first_array_idx = 0
-        #if (direction in ['t', 'b']):
-            #first_array_idx = 1
-        #return data[first_array_idx][]
-
-#class Render:
-    #def __init__(self):
-        #pass
-
-    #def draw(self)
-        
+    for x in range(11):
+        w.create_line(5, coordinate_a, 505, coordinate_b)
+        coordinate_a += row_size
+        coordinate_b += row_size
+    coordinate_a = 5
+    coordinate_b = 5
+    for x in range(11):
+        w.create_line(coordinate_a, 5, coordinate_b, 505)
+        coordinate_a += row_size
+        coordinate_b += row_size
 
 
 # class Robot:
 
+data = MazeData("cisla.txt")
+renderer = MazeRenderer(w, data, row_size)
+renderer.draw()
 
-# class Transformator:
-
-data = MazeData("cisla.txt").wall()
 mainloop()
