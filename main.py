@@ -30,6 +30,7 @@ def draw_grid():
 # class Robot:
 
 data = MazeData("level1.txt")
+data.is_wall()
 renderer = MazeRenderer(w, data, row_size)
 renderer.draw()
 renderer.gui()

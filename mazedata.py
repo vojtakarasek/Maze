@@ -38,22 +38,36 @@ class MazeData:
         return walls_rows, walls_columns, doors_x, doors_y
 
     def is_wall(self):
-        r_pos = (0,0)
-        r_pos_a = r_pos[0]
-        r_pos_b = r_pos[1]
+        r_pos = (3,2)
+        r_pos_x = r_pos[0]
+        r_pos_y = r_pos[1]
         left = False
         right = False
         top = False
         bottom = False
-
-        if (r_pos_a, r_pos_b) in walls_rows:
+        door_l = False
+        door_r = False
+        door_t = False
+        door_b = False
+        if self.data[0][r_pos_y][r_pos_x] == 1:
             left = True
-        if (r_pos_a, r_pos_b) in walls_columns:
-            top = True
-        if (r_pos_a + 1, r_pos_b) in walls_rows:
-            right = True
-        if (r_pos_a, r_pos_b + 1) in walls_columns:
-            bottom = True
+        elif self.data[0][r_pos_y][r_pos_x] == 2:
+            door_l = True
 
+        if self.data[0][r_pos_y][r_pos_x + 1] == 1:
+            right = True
+        elif self.data[0][r_pos_y][r_pos_x + 1] == 2:
+            door_r = True
+
+        if self.data[1][r_pos_x][r_pos_y] == 1:
+            top = True
+        elif self.data[1][r_pos_x][r_pos_y] == 2:
+            door_t = True
+
+        if self.data[1][r_pos_x][r_pos_y + 1] == 1:
+            bottom = True
+        elif self.data[1][r_pos_x][r_pos_y + 1] == 2:
+            door_b = True
+        print(left, right, top, bottom,",",door_l, door_r, door_t, door_b)
         return left, right, top, bottom
 
