@@ -1,6 +1,6 @@
 import tkinter
-from tkinter import *
 from mazedata import MazeData
+from mazerobot import MazeRobot
 
 
 class MazeRenderer:

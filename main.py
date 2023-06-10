@@ -1,6 +1,7 @@
 from tkinter import *
 from mazedata import MazeData
 from mazerenderer import MazeRenderer
+from mazerobot import MazeRobot
 
 main_tk = Tk()
 
