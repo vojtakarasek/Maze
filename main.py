@@ -38,7 +38,9 @@ renderer.gui()
 robot = MazeRobot()
 
 maze = Maze(robot, renderer, data)
-maze.update(w)  # inside is replanned to update again after 1 sec
+maze.draw(w)
+w.after(1000, maze.update, w)
+
 
 
 mainloop()

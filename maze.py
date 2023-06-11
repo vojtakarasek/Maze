@@ -12,12 +12,15 @@ class Maze:
         self.renderer = renderer
         self.data = data
 
-    def update(self, canvas: tkinter.Canvas):
+    def draw(self, canvas: tkinter.Canvas):
         self.renderer.clear()
         self.renderer.draw()
         self.renderer.gui()
-        self.robot.update_position(self.data)
         position = self.robot.get_position()
         left, right, top, bottom = self.renderer.get_robot_rectangle(position)
         self.robot.draw(canvas, left, top, right, bottom)
+
+    def update(self, canvas: tkinter.Canvas):
+        self.robot.update_position(self.data)
+        self.draw(canvas)
         canvas.after(1000, self.update, canvas)
