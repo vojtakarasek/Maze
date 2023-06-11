@@ -69,3 +69,6 @@ class MazeData:
             door_b = True
         # print(left, right, top, bottom,",",door_l, door_r, door_t, door_b)
         return left, right, top, bottom, door_l, door_r, door_t, door_b
+
+    def get_row_count(self):
+        return len(self.data[1])

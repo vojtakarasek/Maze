@@ -3,7 +3,7 @@ from mazedata import MazeData
 
 
 class MazeRobot:
-    def __init__(self, position: (int, int), row_size: int, data: MazeData):
+    def __init__(self, position: (int, int), data: MazeData):
         self.data = data
         # direction
         self.delta_x = 1
@@ -11,14 +11,14 @@ class MazeRobot:
         # position
         self.position = position
         self.visited = {(self.position[0], self.position[1])}
-
-        self.row_size = row_size
+        self.rotation_number = 0
 
     def step(self):
         self.position = (self.position[0] + self.delta_x, self.position[1] + self.delta_y)
 
     def more_than_one_way(self):
-        left, right, top, bottom, door_l, door_r, door_t, door_b = self.data.is_wall((self.position[0], self.position[1]))
+        left, right, top, bottom, door_l, door_r, door_t, door_b = self.data.is_wall(
+            (self.position[0], self.position[1]))
         if (not right and not left) or (not right and not top) or (not right and not bottom) or (
                 not left and not top) or (not left and not bottom) or (
                 not top and not bottom):
@@ -26,10 +26,6 @@ class MazeRobot:
 
     def already_visited(self):
         if (self.position[0] + self.delta_x, self.position[1] + self.delta_y) in self.visited:
-            return True
-
-    def already_visited_2(self):
-        if (self.position[0], self.position[1] + 1) in self.visited:
             return True
 
     def wall_ahead(self):
@@ -59,9 +55,8 @@ class MazeRobot:
             self.delta_y = 0
 
     def update_position(self):
-        left, right, top, bottom, door_l, door_r, door_t, door_b = self.data.is_wall(
-            (self.position[0], self.position[1]))
-        self.visited.add((self.position[0], self.position[1]))
+        left, right, top, bottom, door_l, door_r, door_t, door_b = self.data.is_wall(self.position)
+        self.visited.add(self.position)
 
         if door_l or door_r or door_t or door_b:
             if door_l is True:
@@ -77,37 +72,34 @@ class MazeRobot:
                 self.delta_x = 0
                 self.delta_y = 1
             return
-
-        # if not self.more_than_one_way() and not self.wall_ahead():
-            # self.step()
-
-        # else:
         # movement
-        if not self.wall_ahead() and not (self.already_visited() and self.more_than_one_way()):
-            self.step()
-        elif not self.wall_ahead() and self.more_than_one_way() and self.already_visited() and self.already_visited_2():
+        if self.rotation_number == 5:
             self.step
+            self.rotation_number = 0
+
+        elif not self.wall_ahead() and not (self.already_visited() and self.more_than_one_way()):
+            self.step()
+            self.rotation_number = 0
         # rotation
-        if self.more_than_one_way() and self.already_visited() and self.already_visited_2():
-                self.rotate()
-                self.step()
-        elif self.more_than_one_way() and self.already_visited():
+        if self.more_than_one_way() and self.already_visited():
             self.rotate()
+            self.rotation_number += 1
 
         elif self.wall_ahead():
             self.rotate()
-
+            self.rotation_number += 1
 
     def get_position(self) -> (int, int):
         return self.position
 
     def draw(self, canvas: tkinter.Canvas, left: int, right: int, top: int, bottom: int):
         canvas.create_rectangle(left, top, right, bottom, fill="light blue")
+        row_size = bottom - top
         if self.delta_x == 1:  # right
-            canvas.create_rectangle(left + (self.row_size / 2), top, right, bottom, fill="blue")
+            canvas.create_rectangle(left + (row_size / 2), top, right, bottom, fill="blue")
         if self.delta_x == -1:  # left
-            canvas.create_rectangle(left, top, right - (self.row_size / 2), bottom, fill="blue")
+            canvas.create_rectangle(left, top, right - (row_size / 2), bottom, fill="blue")
         if self.delta_y == 1:  # bot
-            canvas.create_rectangle(left, top + (self.row_size / 2), right, bottom, fill="blue")
+            canvas.create_rectangle(left, top + (row_size / 2), right, bottom, fill="blue")
         if self.delta_y == -1:  # top
-            canvas.create_rectangle(left, top, right, bottom - (self.row_size / 2), fill="blue")
+            canvas.create_rectangle(left, top, right, bottom - (row_size / 2), fill="blue")

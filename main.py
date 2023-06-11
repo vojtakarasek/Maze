@@ -4,22 +4,23 @@ from mazerenderer import MazeRenderer
 from maze import Maze
 from mazerobot import MazeRobot
 
-main_tk = Tk()
+root = Tk()
 
-w = Canvas(main_tk, width=1000, height=506)
+w = Canvas(root, width=1000, height=506)
 w.pack()
-row_size = 50
 
+data = MazeData("level1.txt")
+renderer = MazeRenderer(w, data, 500 / data.get_row_count())
 
-data = MazeData("level3.txt")
-renderer = MazeRenderer(w, data, row_size)
-renderer.gui()
-robot = MazeRobot((0,0), row_size, data)
+robot = MazeRobot((0, 0), data)
 
 maze = Maze(robot, renderer, data)
 maze.draw(w)
-w.after(200, maze.update, w)
 
 
+# w.after(200, maze.update, w)
+
+renderer.gui()
+root.bind("<Button-1>", lambda event: maze.on_click(event, w))
 
 mainloop()

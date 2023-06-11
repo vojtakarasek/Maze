@@ -24,3 +24,7 @@ class Maze:
         self.robot.update_position()
         self.draw(canvas)
         canvas.after(200, self.update, canvas)
+
+    def on_click(self, data, canvas):
+        if self.renderer.is_start_button((data.x, data.y)):
+            self.update(canvas)
