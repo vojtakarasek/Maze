@@ -23,4 +23,4 @@ class Maze:
     def update(self, canvas: tkinter.Canvas):
         self.robot.update_position(self.data)
         self.draw(canvas)
-        canvas.after(1000, self.update, canvas)
+        canvas.after(500, self.update, canvas)

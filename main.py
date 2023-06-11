@@ -11,7 +11,7 @@ w = Canvas(main_tk, width=1000, height=506)
 w.pack()
 rows_number = 0
 columns_number = 0
-row_size = 125
+row_size = 50
 
 def draw_grid():
     # creating table
@@ -32,14 +32,14 @@ def draw_grid():
 
 # class Robot:
 
-data = MazeData("level1.txt")
+data = MazeData("level3.txt")
 renderer = MazeRenderer(w, data, row_size)
 renderer.gui()
-robot = MazeRobot()
+robot = MazeRobot((1,2))
 
 maze = Maze(robot, renderer, data)
 maze.draw(w)
-w.after(1000, maze.update, w)
+w.after(500, maze.update, w)
 
 
 
