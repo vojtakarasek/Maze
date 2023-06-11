@@ -15,6 +15,7 @@ class MazeRobot:
 
     def step(self):
         self.position = (self.position[0] + self.delta_x, self.position[1] + self.delta_y)
+        self.rotation_number = 0
 
     def more_than_one_way(self):
         left, right, top, bottom, door_l, door_r, door_t, door_b = self.data.is_wall(
@@ -53,6 +54,7 @@ class MazeRobot:
         elif self.delta_y == -1:
             self.delta_x = 1
             self.delta_y = 0
+        self.rotation_number += 1
 
     def update_position(self):
         left, right, top, bottom, door_l, door_r, door_t, door_b = self.data.is_wall(self.position)
@@ -73,21 +75,20 @@ class MazeRobot:
                 self.delta_y = 1
             return
         # movement
-        if self.rotation_number == 5:
-            self.step
-            self.rotation_number = 0
+        if self.rotation_number == 5 and not self.wall_ahead():
+            self.step()
+
+        if self.rotation_number == 8 and not self.wall_ahead():
+            self.step()
 
         elif not self.wall_ahead() and not (self.already_visited() and self.more_than_one_way()):
             self.step()
-            self.rotation_number = 0
         # rotation
         if self.more_than_one_way() and self.already_visited():
             self.rotate()
-            self.rotation_number += 1
 
         elif self.wall_ahead():
             self.rotate()
-            self.rotation_number += 1
 
     def get_position(self) -> (int, int):
         return self.position

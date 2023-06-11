@@ -23,7 +23,7 @@ class Maze:
     def update(self, canvas: tkinter.Canvas):
         self.robot.update_position()
         self.draw(canvas)
-        canvas.after(200, self.update, canvas)
+        canvas.after(100, self.update, canvas)
 
     def on_click(self, data, canvas):
         if self.renderer.is_start_button((data.x, data.y)):
