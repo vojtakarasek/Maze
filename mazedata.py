@@ -1,4 +1,3 @@
-from mazerobot import MazeRobot
 class MazeData:
 
     def __init__(self, file_name):
@@ -35,11 +34,10 @@ class MazeData:
 
                 wall_x += 1
             wall_y += 1
-        #print(walls_rows, walls_columns, doors_x, doors_y)
+        # print(walls_rows, walls_columns, doors_x, doors_y)
         return walls_rows, walls_columns, doors_x, doors_y
 
     def is_wall(self, r_pos):
-        r_pos = (3,2)
         r_pos_x = r_pos[0]
         r_pos_y = r_pos[1]
         left = False
@@ -69,6 +67,5 @@ class MazeData:
             bottom = True
         elif self.data[1][r_pos_x][r_pos_y + 1] == 2:
             door_b = True
-        #print(left, right, top, bottom,",",door_l, door_r, door_t, door_b)
-        return left, right, top, bottom
-
+        # print(left, right, top, bottom,",",door_l, door_r, door_t, door_b)
+        return left, right, top, bottom, door_l, door_r, door_t, door_b

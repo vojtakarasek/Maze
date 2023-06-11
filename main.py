@@ -1,6 +1,8 @@
 from tkinter import *
 from mazedata import MazeData
 from mazerenderer import MazeRenderer
+from maze import Maze
+
 from mazerobot import MazeRobot
 
 main_tk = Tk()
@@ -31,9 +33,12 @@ def draw_grid():
 # class Robot:
 
 data = MazeData("level1.txt")
-data.is_wall()
 renderer = MazeRenderer(w, data, row_size)
-renderer.draw()
 renderer.gui()
+robot = MazeRobot()
+
+maze = Maze(robot, renderer, data)
+maze.update(w)  # inside is replanned to update again after 1 sec
+
 
 mainloop()
