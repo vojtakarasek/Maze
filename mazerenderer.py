@@ -60,5 +60,14 @@ class MazeRenderer:
         self.w.create_rectangle(616, 400, 916, 460, fill="light green", activefill="light blue")
         self.w.create_text(766, 430, text="Start!", fill="green", font=('Helvetica 25 bold'), state="disabled")
 
+    def is_level_button(self, position: (int, int)):
+        return 616 < position[0] < 916 and 43 < position[1] < 83
+
+    def is_file_button(self, position: (int, int)):
+        return 616 < position[0] < 916 and 169 < position[1] < 209
+
+    def is_placement_button(self, position: (int, int)):
+        return 616 < position[0] < 916 and 295 < position[1] < 335
+
     def is_start_button(self, position: (int, int)):
         return 616 < position[0] < 916 and 400 < position[1] < 460
