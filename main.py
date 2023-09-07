@@ -9,7 +9,7 @@ root = Tk()
 w = Canvas(root, width=1000, height=506)
 w.pack()
 
-data = MazeData("level3.txt")
+data = MazeData("level1.txt")
 renderer = MazeRenderer(w, data, 500 / data.get_row_count())
 
 robot = MazeRobot((0, 0), data)
@@ -20,5 +20,4 @@ maze.draw(w)
 
 renderer.gui()
 root.bind("<Button-1>", lambda event: maze.on_click(event, w))
-
 mainloop()
