@@ -1,2 +1,1 @@
-ahoj, snad uz to esm dostanu
-prosim f
+First bigger school project. Still deserves some work
