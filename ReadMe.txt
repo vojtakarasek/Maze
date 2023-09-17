@@ -1,1 +1,1 @@
-First bigger school project. Still deserves some work
+First bigger project. Still deserves some work
